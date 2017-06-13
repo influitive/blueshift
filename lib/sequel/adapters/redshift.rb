@@ -125,11 +125,13 @@ module Sequel
           [m.call(row.delete(:name)), row]
         end
       end
+
+      def dataset_class_default
+        Dataset
+      end
     end
 
     class Dataset < Postgres::Dataset
-      Database::DatasetClass = self
-
       # Redshift doesn't support RETURNING statement
       def insert_returning_sql(sql)
         # do nothing here
