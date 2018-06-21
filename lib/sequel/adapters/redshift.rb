@@ -41,6 +41,10 @@ module Sequel
 
       private
 
+      def dataset_class_default
+        Dataset
+      end
+
       def type_literal_generic_string(column)
         super(column.merge(text: false))
       end
@@ -128,8 +132,6 @@ module Sequel
     end
 
     class Dataset < Postgres::Dataset
-      Database::DatasetClass = self
-
       # Redshift doesn't support RETURNING statement
       def insert_returning_sql(sql)
         # do nothing here
