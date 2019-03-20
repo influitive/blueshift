@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# use `set -u` to throw errors if we reference null env vars
+set -u
+
+docker rm -f gem$1
+docker network create $1
+docker build -t gem$1 -f Dockerfile .
+docker run --name=gem$1 --net="$1" -itd -v $(pwd)/:/gem gem$1 bash
