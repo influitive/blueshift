@@ -7,7 +7,6 @@ Dir.chdir('spec/support') do
   require 'blueshift'
 end
 
-
 DB = Sequel.connect(ENV['REDSHIFT_URL'] || 'redshift://localhost/db', logger: Logger.new('test.log'))
 PGDB = Sequel.connect(ENV['DATABASE_URL'] || 'postgresql://localhost/db', logger: Logger.new('test.log'))
 

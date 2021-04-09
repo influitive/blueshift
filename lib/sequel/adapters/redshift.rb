@@ -31,9 +31,9 @@ module Sequel
         super.merge(serial: false)
       end
 
-      def connection_configuration_sqls
-        []
-      end
+      # def connection_configuration_sqls
+      #   []
+      # end
 
       def supports_index_parsing?
         false
