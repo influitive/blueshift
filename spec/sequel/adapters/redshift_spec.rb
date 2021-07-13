@@ -122,38 +122,5 @@ RSpec.describe Sequel::Redshift do
         String :accent
       end
     end
-
-    it 'should reset the sortkeys' do
-      sqls = [
-          'ALTER TABLE "characters" RENAME TO "old_characters"',
-          'CREATE TABLE "new_characters" ("name" varchar(255), "ability" varchar(255), "age" integer, "accent" varchar(255)) INTERLEAVED SORTKEY (name)',
-          ['INSERT INTO "new_characters" (SELECT * FROM "old_characters")', {}],
-          'ALTER TABLE "new_characters" RENAME TO "characters"',
-          'DROP TABLE "old_characters"',
-      ]
-      sqls.each do |sql|
-        expect(DB).to receive(:execute_ddl).with(*sql).ordered
-      end
-
-      DB.optimize_table :characters, sortkeys: [:name], sortstyle: :interleaved
-    end
-
-    it 'should run in a transaction' do
-      expect(DB).to receive(:transaction).and_call_original
-      DB.optimize_table :characters, sortkeys: :accent
-    end
-  end
-
-  describe '#schema' do
-    before do
-      DB.create_table!(:chocolates) do
-        String :id, size: 36, fixed: true, primary_key: true
-        String :region
-      end
-    end
-
-    it 'should not raise an error' do
-      expect { DB.schema(:chocolates) }.to_not raise_error
-    end
   end
 end

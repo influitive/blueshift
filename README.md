@@ -1,5 +1,6 @@
 # Blueshift
 
+
 The Amazon Redshift adapter for Sequel
 
 ## Installation
