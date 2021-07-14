@@ -31,7 +31,7 @@ module Sequel
         super.merge(serial: false)
       end
 
-      def connection_configuration_sqls
+      def connection_configuration_sqls(opts)
         []
       end
 
